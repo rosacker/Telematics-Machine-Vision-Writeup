@@ -12,6 +12,29 @@ repo_name: "GitHub"
 repo_url: "https://github.com/rosacker/Telematics-Machine-Vision-Writeup"
 edit_uri: "https://github.com/rosacker/Telematics-Machine-Vision-Writeup/edit/master/Docs"
 
+# Page Order
+nav:
+    - 'index.md'
+    - Context:
+      - 'Context/Telematics.md'
+      - 'Context/Project-Goal.md'
+    - 'Dataset.md'
+    - Models:
+      - 'Models/index.md'
+      - 'Models/Weather-Detection.md'
+      - 'Models/Time-Of-Day-Detection.md'
+      - 'Models/Street-Category.md'
+      - 'Models/Stop-Light-Detection.md'
+      - 'Models/Road-Object-Detection.md'
+    - Deployment:
+      - 'Deployment/index.md'
+      - 'Deployment/API.md'
+      - 'Deployment/Camera-Options.md'
+    - 'Road-Test.md'
+    - 'Costs.md'
+    - 'Future-Research.md'
+    - 'Sources.md'
+    - 'About-The-Author.md'
 # Configuration
 docs_dir: "Docs"
 theme:
@@ -26,6 +49,8 @@ theme:
   features:
     - navigation.indexes
     - navigation.top
+    - navigation.instant
+    - navigation.expand
 
 # Extensions
 markdown_extensions:
