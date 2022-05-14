@@ -20,7 +20,7 @@ theme:
   palette:
     scheme: default
   icon:
-    logo: material/material-car
+    logo: material/car
     favicon: material/red_car
     repo: fontawesome/brands/github
   features:
