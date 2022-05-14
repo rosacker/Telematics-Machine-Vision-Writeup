@@ -1,4 +1,4 @@
-# Road Objection Detection  
+# Stop Light Detection
 
 WIP - PUT IMAGE HERE
 
