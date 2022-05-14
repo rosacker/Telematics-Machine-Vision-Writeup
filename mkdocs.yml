@@ -1,6 +1,6 @@
 # Project information
-site_name: "Vehicle Telematics WIth Machine Vision"
-site_description: "A project "
+site_name: "Vehicle Telematics With Machine Vision"
+site_description: "A project"
 site_author: "Tyler Rosacker"
 site_url: "https://mkdocs.peaceiris.com/"
 
@@ -13,7 +13,7 @@ repo_url: "https://github.com/rosacker/Telematics-Machine-Vision-Writeup"
 edit_uri: "https://github.com/rosacker/Telematics-Machine-Vision-Writeup/edit/main/docs"
 
 # Configuration
-docs_dir: "docs"
+docs_dir: "../docs"
 theme:
   name: "material"
   language: "en"
@@ -39,8 +39,6 @@ markdown_extensions:
   - admonition
   - codehilite
   - footnotes
-  - mdx_math:
-      enable_dollar_delimiter: true
   - toc:
       permalink: true
       separator: "_"
