@@ -1,0 +1,52 @@
+# Project information
+site_name: "Vehicle Telematics WIth Machine Vision"
+site_description: "A project "
+site_author: "Tyler Rosacker"
+site_url: "https://mkdocs.peaceiris.com/"
+
+# Copyright
+copyright: "&copy; 2022 Tyler Rosacker"
+
+# Repository
+repo_name: "GitHub"
+repo_url: "https://github.com/rosacker/Telematics-Machine-Vision-Writeup"
+edit_uri: "https://github.com/rosacker/Telematics-Machine-Vision-Writeup/edit/main/docs"
+
+# Configuration
+docs_dir: "docs"
+theme:
+  name: "material"
+  language: "en"
+  shortcuts:
+    help: 191 # ?
+    next: 78 # n
+    previous: 80 # p
+    search: 83 # s
+  palette:
+    primary: "blue"
+    accent: "blue"
+  features:
+    - tabs
+  #font:
+  #text: 'Ubuntu'
+  #code: 'Ubuntu Mono'
+  #icon:
+  #logo: 'images/logo.svg'
+  #favicon: 'assets/images/favicon.ico'
+
+# Extensions
+markdown_extensions:
+  - admonition
+  - codehilite
+  - footnotes
+  - mdx_math:
+      enable_dollar_delimiter: true
+  - toc:
+      permalink: true
+      separator: "_"
+
+plugins:
+  - search:
+      separator: '[\s\-\.]+'
+      lang:
+        - en
