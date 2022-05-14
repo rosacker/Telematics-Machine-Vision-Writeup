@@ -1,5 +1,3 @@
-# Vehicle Telematics Applied to Machine Vision
-
-## Abstract
+# Abstract
 
 WIP
