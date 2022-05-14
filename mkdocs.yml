@@ -10,7 +10,7 @@ copyright: "&copy; 2022 Tyler Rosacker"
 # Repository
 repo_name: "GitHub"
 repo_url: "https://github.com/rosacker/Telematics-Machine-Vision-Writeup"
-edit_uri: "https://github.com/rosacker/Telematics-Machine-Vision-Writeup/edit/master/docs"
+edit_uri: "https://github.com/rosacker/Telematics-Machine-Vision-Writeup/edit/master/Docs"
 
 # Configuration
 docs_dir: "Docs"
