@@ -44,7 +44,6 @@ theme:
     scheme: default
   icon:
     logo: material/car
-    favicon: material/red_car
     repo: fontawesome/brands/github
   features:
     - navigation.indexes
