@@ -39,4 +39,3 @@ plugins:
       separator: '[\s\-\.]+'
       lang:
         - en
-  - social
