@@ -13,7 +13,7 @@ repo_url: "https://github.com/rosacker/Telematics-Machine-Vision-Writeup"
 edit_uri: "https://github.com/rosacker/Telematics-Machine-Vision-Writeup/edit/main/docs"
 
 # Configuration
-docs_dir: "../docs"
+docs_dir: "Docs"
 theme:
   name: "material"
   language: "en"
