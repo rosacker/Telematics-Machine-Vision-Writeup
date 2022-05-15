@@ -16,7 +16,7 @@ See [Detecting Unsigned Physical Road Incidents from Driver-View Images](https:/
 
 ## Multi-Image Analysis
 
-One key area of improvement would be adding the ability to consider multiple images together. While the current solution only considers each image in issolation (i.e. "Is there a stop light in my view?"), the would be the potential to consider across multiple images and make more meaningful detections (i.e. "Am I approaching a red stop light quickly?")
+One key area of improvement would be adding the ability to consider multiple images together. While the current solution only considers each image in isolation (i.e. "Is there a stop light in my view?"), the would be the potential to consider across multiple images and make more meaningful detections (i.e. "Am I approaching a red stop light quickly?")
 
 ### Vehicle Approach Speed
 

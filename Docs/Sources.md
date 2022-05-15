@@ -15,7 +15,7 @@
 + [Deep Residual Learning for Image Recognition](https://arxiv.org/abs/1512.03385)
 + [YOLOv4: Optimal Speed and Accuracy of Object Detection](https://arxiv.org/abs/2004.10934)
 
-## AWS Service Doucmentation
+## AWS Services Documentation
 
 + [AWS Rekognition User Documentation](https://docs.aws.amazon.com/rekognition/latest/customlabels-dg/what-is.html)
 + [AWS Sagemaker User Documentation](https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html)
