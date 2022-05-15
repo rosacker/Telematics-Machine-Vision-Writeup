@@ -15,9 +15,8 @@ edit_uri: "https://github.com/rosacker/Telematics-Machine-Vision-Writeup/edit/ma
 # Page Order
 nav:
     - 'index.md'
-    - Context:
-      - 'Context/Telematics.md'
-      - 'Context/Project-Goal.md'
+    - 'Telematics-Context.md'
+    - 'Project-Goal.md'
     - 'Dataset.md'
     - Models:
       - 'Models/index.md'

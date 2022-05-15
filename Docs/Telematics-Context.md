@@ -1,4 +1,4 @@
-# Telematics
+# Telematics Context
 
 Vehicle Telematics and the concept of "Usage Based Insurance" have become commonplace in the US Auto Insurance Industry over the past decade [^1] [^2] [^3]. The general idea with these programs is that policyholders agree to put a device in their car that monitors their operation of the vehicle, and in return they *generally*[^4] receive a reduction in premium. This is thought to be mutually beneficial because the insured has more agency in controlling the premium they are charged, and the insurer has more certainty around the risk they are assuming for an individual policy.
 
