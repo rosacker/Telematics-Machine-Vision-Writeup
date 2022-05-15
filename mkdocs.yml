@@ -26,6 +26,7 @@ nav:
       - 'Models/Street-Category.md'
       - 'Models/Stop-Light-Detection.md'
       - 'Models/Road-Object-Detection.md'
+      - 'Models/Why-AutoML.md'
     - Deployment:
       - 'Deployment/index.md'
       - 'Deployment/API.md'
