@@ -6,6 +6,7 @@
 
 ## Motivating Research
 
++ [Usage-Based Insurance and Vehicle Telematics: Insurance Market and Regulatory Implications](https://www.casact.org/sites/default/files/2021-03/6U_NAIC_Telematics.pdf)
 + [Predicting Driver Attention in Critical Situations](https://arxiv.org/abs/1711.06406)
 + [Detecting Unsigned Physical Road Incidents from Driver-View Images](https://arxiv.org/abs/2004.11824)
 
