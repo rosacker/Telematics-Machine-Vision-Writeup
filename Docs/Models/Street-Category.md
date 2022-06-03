@@ -1,4 +1,4 @@
-# Streat Category Classifier
+# Street Category Classifier
 
 WIP - PUT IMAGE HERE
 
