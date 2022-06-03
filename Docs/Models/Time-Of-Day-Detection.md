@@ -68,20 +68,9 @@ This time series shows the models confidence over the duration of a 30 minute dr
 
 ### Model Interpretation
 
-Below is an example image from each class where the model was highly confident in the correct label. When reading these images, a blue region means that it contributed to the confidence, and a red region means it detracted from the confidence.
+Below is an example image from each class where the model was highly confident in the correct label. When reading these images, a blue region means that it contributed to the confidence, and a red region means it detracted from the confidence.  
 
-#### Day
-
-![](images/timeofday-daytime-shap.jpeg)
-
-#### Dawn/Dusk
-
-![](images/timeofday-dusk-shap.jpeg)
-
-#### Night
-
-![](images/timeofday-night-shap.jpeg)
-
-#### Undefined
-
-![](images/timeofday-undefined-shap.jpeg)
++ [Day](images/timeofday-daytime-shap.jpeg)
++ [Dawn/Dusk](images/timeofday-dusk-shap.jpeg)
++ [Night](images/timeofday-night-shap.jpeg)
++ [Undefined](images/timeofday-undefined-shap.jpeg)
