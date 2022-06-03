@@ -25,7 +25,7 @@ In practice, the Undefined class is almost never used in the training data. It i
 
 The model was trained using the BDD100k dataset [as described previously](../Dataset.md).
 
-Images were resized down to 224 x 224 pixels in order to align with the Sagemaker Image Classification container. 
+Images were resized down to 224 x 224 pixels in order to align with the Sagemaker Image Classification container.
 
 The dataset was highly imbalanced initially. As shown below, data was down-sampled for training. The final validation dataset was held as is.
 
@@ -37,7 +37,22 @@ WIP
 
 ## Performance
 
-WIP
+### F1 Score
+
+|              | precision | recall | f1-score | support |
+|:------------:|:---------:|:------:|----------|---------|
+|   dawn/dusk  |    0.57   | 0.53   | 0.55     | 778     |
+|    daytime   |    0.93   | 0.94   | 0.94     | 5258    |
+|     night    |    0.98   | 0.98   | 0.98     | 3929    |
+|   undefined  |    0.74   | 0.57   | 0.65     | 35      |
+|              |           |        |          |         |
+|   accuracy   |       |   | 0.92   | 10000    |
+| macro avg    | 0.80      | 0.75   | 0.78     | 10000   |
+| weighted avg | 0.92      | 0.92   | 0.92     | 10000   |
+
+### Confusion Matrix
+
+![](images/timeofday-confusion-matrix.PNG)
 
 ## Future Enhancements
 
