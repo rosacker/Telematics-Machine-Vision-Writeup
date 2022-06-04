@@ -1,6 +1,6 @@
 # Dataset
 
-The dataset selected for this project comes from "BDD100K: A Large-scale Diverse Driving Video Database".
+The dataset selected for this project comes from "BDD100K: A Large-scale Diverse Driving Video Database". Much more detail on this dataset can be found on [their website](https://www.bdd100k.com/).
 
 The dataset includes 100,000 images from a frontward facing camera with a wide variety modeling tasks. This includes tasks from the domains of image classification, object detection and image segmentation. This dataset was selected due to the sheer number of images available, the high degree of variety in the images, and the fact that one single dataset could be used for many different applicable tasks.
 
