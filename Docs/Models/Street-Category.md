@@ -11,7 +11,7 @@ Theoretically this data could be sourced through open source databases such as O
 The proposed model takes a single 3 x 224 x 224 image as input, and outputs probability of 4 classes:  
   
 1) City Street  
-2) Highway
+2) Highway  
 3) Residential  
 4) Undefined  
   
@@ -55,6 +55,16 @@ Below are the key hyperparameters that were selected:
 
 Overall the performance of the model appears to be middle of the road with a 67% accuracy on validation. In general, the model's accuracy seems to be impacted by unclear definitions of "residential" vs "city street" in the dataset. The intended definition seems to be single-family dense neighbors (residential) versus commercial district streets (city street). However, these are fairly similar in the grand scheme of all roads that can exist. Potentially re-assessing the data collected and the labels to have a broader span of classes (i.e. dirt road, suburban residential, small town commercial) would be a better way to assess performance.
 
+Find additional fit statistics in the [appendix](#appendix).
+
+## Future Enhancements
+
+The model trained on the BDD100k dataset does not exactly meet the intended use of that data. Teaching autonomous vehicles to drive isn't directly in line with my intended use (identifying risks to a *human* driver). While it was good enough for a school project, future research should look to collect a different dataset more in line with this use case. A big gap applicable to this "street category" model was the definitions of Residential vs City Street. A better dataset for this purpose would likely have a broader class of roads (dirt road, suburban residential, small town commercial) rather than being very specific about the difference between City Residential vs City Commercial.
+
+Additionally, looking to rebuild the model in a different tool stack would likely be good. The AWS Sagemaker Image Classification container was used as a learning opportunity, but the lack of control I had over the model was limiting. The model was prone to overfitting, and that sagemaker container does not give many options for a data scientist to mitigate those issues.
+
+## Appendix
+
 ### F1 Score
 
 |              | precision | recall | f1-score | support |
@@ -71,14 +81,6 @@ Overall the performance of the model appears to be middle of the road with a 67%
 ### Confusion Matrix
 
 ![](images/scene-confusion-matrix.PNG)
-
-## Future Enhancements
-
-The model trained on the BDD100k dataset does not exactly meet the intended use of that data. Teaching autonomous vehicles to drive isn't directly in line with my intended use (identifying risks to a *human* driver). While it was good enough for a school project, future research should look to collect a different dataset more in line with this use case. A big gap applicable to this "street category" model was the definitions of Residential vs City Street. A better dataset for this purpose would likely have a broader class of roads (dirt road, suburban residential, small town commercial) rather than being very specific about the difference between City Residential vs City Commercial.
-
-Additionally, looking to rebuild the model in a different tool stack would likely be good. The AWS Sagemaker Image Classification container was used as a learning opportunity, but the lack of control I had over the model was limiting. The model was prone to overfitting, and that sagemaker container does not give many options for a data scientist to mitigate those issues.
-
-## Appendix
 
 ### Model Interpretation
 

@@ -9,14 +9,14 @@ The purpose of this model is to detect the weather condition that the driver has
 
 The proposed model takes a single 3 x 224 x 224 image as input, and outputs probability of 6 classes:  
   
-1) Clear
+1) Clear  
 2) Partly Cloudy  
-3) Overcast
-4) Rainy
-5) Snowy
-6) Undefined
+3) Overcast  
+4) Rainy  
+5) Snowy  
+6) Undefined  
   
-In practice, the Undefined class is mostly used for night-time conditions where the sky is not visible, and road conditions do not allow for the assessment of the weather. 
+In practice, the Undefined class is mostly used for night-time conditions where the sky is not visible, and road conditions do not allow for the assessment of the weather.
 
 ## Data Considerations
 
@@ -58,6 +58,16 @@ Below are the key hyperparameters that were selected:
 
 Overall the performance of the model appears to be middle of the road with a 74% accuracy on validation. In general, the model's accuracy seems to be impacted by the fuzzy line between classes: at what point does a cloudy sky become "rainy"? In reviewing mis-classification examples, commonly the ground-truth label was unclear. For example, an image of clear weather sky, but a small amount of snow on the side of the road was labeled "snowy". While that label is not objectively wrong, I think reasonable minds would agree with the models label of "clear" as well.
 
+Find additional fit statistics in the [appendix](#appendix).
+
+## Future Enhancements
+
+The model trained on the BDD100k dataset does not exactly meet the intended use of that data. Teaching autonomous vehicles to drive isn't directly in line with my intended use (identifying risks to a *human* driver). While it was good enough for a school project, future research should look to collect a different dataset more in line with this use case. A big gap applicable to this "weather" model was the lack of focus on dangerous weather conditions. The difference between "Clear" and "Partly Cloudy" is almost surely not meaningful for the intended downstream use of this model. Ideally, there would be more classes of adverse weather (i.e. foggy, flooded, roads fully covered in snow), and less granularity of the "safe" classes.
+
+Additionally, looking to rebuild the model in a different tool stack would likely be good. The AWS Sagemaker Image Classification container was used as a learning opportunity, but the lack of control I had over the model was limiting. The model was prone to overfitting, and that sagemaker container does not give many options for a data scientist to mitigate those issues.
+
+## Appendix
+
 ### F1 Score
 
 |               | precision | recall | f1-score | support |
@@ -76,14 +86,6 @@ Overall the performance of the model appears to be middle of the road with a 74%
 ### Confusion Matrix
 
 ![](images/weather-confusion-matrix.PNG)
-
-## Future Enhancements
-
-The model trained on the BDD100k dataset does not exactly meet the intended use of that data. Teaching autonomous vehicles to drive isn't directly in line with my intended use (identifying risks to a *human* driver). While it was good enough for a school project, future research should look to collect a different dataset more in line with this use case. A big gap applicable to this "weather" model was the lack of focus on dangerous weather conditions. The difference between "Clear" and "Partly Cloudy" is almost surely not meaningful for the intended downstream use of this model. Ideally, there would be more classes of adverse weather (i.e. foggy, flooded, roads fully covered in snow), and less granularity of the "safe" classes.
-
-Additionally, looking to rebuild the model in a different tool stack would likely be good. The AWS Sagemaker Image Classification container was used as a learning opportunity, but the lack of control I had over the model was limiting. The model was prone to overfitting, and that sagemaker container does not give many options for a data scientist to mitigate those issues.
-
-## Appendix
 
 ### Model Interpretation
 
