@@ -22,14 +22,14 @@ The backend source code can be [found here](https://github.com/rosacker/Telemati
 
 ### Scale
 
-The system build for this project works well for small-medium scale. However, for a major insurance company to use it, there would likely need to be some hardening done on the batch pipeline. One service to look into would be AWS Kinesis which may provide better scalability when processing potentially millions of images daily.
+The system built for this project works well for small-medium scale. However, for a major insurance company to use it, there would likely need to be some hardening done on the batch pipeline. One service to look into would be AWS Kinesis which may provide better scalability when processing potentially millions of images daily.
 
 ### Security
 
-The initial system does not have user identify or user authentication implemented. Implementing a service such as AWS Cognito would be needed in order to make this production grade.
+The initial system does not have user identity or user authentication implemented. Implementing a service such as AWS Cognito would be needed in order to make this production grade.
 
 ### User Data Limits
 
-This system sends one 480p image every 5 seconds from a user's smartphone. That equates to approximately. Given that the average American spends ~50 minutes driving per day[^1], that would equate to about 18 GB captured per person, per month. This could cause significant issues for user data caps and battery life. Additional tuning would be needed to determine if a lower resolution, lower frequency option for data capture would be acceptable. Alternatively, looking for ways to run the models on the user device (such as Tensorflow.js) would likely reduce data use (though increase battery use).
+This system sends one 480p image every 5 seconds from a user's smartphone. Given that the average American spends ~50 minutes driving per day[^1], that would equate to about 18 GB captured per person, per month. This could cause significant issues for user data caps and battery life. Additional tuning would be needed to determine if a lower resolution, lower frequency option for data capture would be acceptable. Alternatively, looking for ways to run the models on the user device (such as Tensorflow.js) would likely reduce data use (though increase battery use).
 
 [^1]: Source - [Link](https://aaafoundation.org/wp-content/uploads/2018/02/18-0019_AAAFTS-ADS-Research-Brief.pdf)
