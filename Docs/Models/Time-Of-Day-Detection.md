@@ -39,7 +39,11 @@ The dataset was highly imbalanced initially. As shown below, data was down-sampl
 
 ## Model Architecture
 
-The model was trained using the [AWS Sagemaker Image Classification](https://docs.aws.amazon.com/sagemaker/latest/dg/image-classification.html) container. The model is trained using MXNet, it is a convolutional neural network. Beyond that, the AWS user documentation unfortunately does not give a ton of details on the architecture built behind the scenes. Below are the key hyperparameters that were selected:
+The model was trained using the [AWS Sagemaker Image Classification](https://docs.aws.amazon.com/sagemaker/latest/dg/image-classification.html) container. The model is trained using MXNet, it is a convolutional neural network. Beyond that, the AWS user documentation unfortunately does not give a ton of details on the architecture built behind the scenes. A raw visualization of the architecture exported from Sagemaker [can be found here](images/model_arch-scene-timeofday.svg). It appears to match the ResNet architecture [^2] terminating with a classification head.
+
+[^2]: [ResNet Architecture Paper](https://arxiv.org/abs/1512.03385)
+
+Below are the key hyperparameters that were selected:
 
 | Hyperparameter     | Value         | Notes                                                                                                             |
 | ------------------ | ------------- | ----------------------------------------------------------------------------------------------------------------- |

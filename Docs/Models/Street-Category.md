@@ -26,6 +26,8 @@ In practice, the Undefined class is almost never used in the training data. It i
 
 WIP - Rewrite Data Considerations
 
+WIP - Add considerations around classes that were binned
+
 The model was trained using the BDD100k dataset [as described previously](../Dataset.md). This dataset has approximetly 70,000 training images and 10,000 validation images.
 
 Images were resized down to 224 x 224 pixels in order to align with the Sagemaker Image Classification container.
@@ -34,31 +36,39 @@ The dataset was highly imbalanced initially. As shown below, data was down-sampl
 
 |    Level    | Original Count | Down Sample Rate | Final Count |
 | :---------: | :------------: | :--------------: | ----------- |
-| city street |     43,516     |       25%        | 10,820       |
-|   highway   |     17,379     |       50%        | 8,620        |
-| residential |      8074      |       100%       | 8,074        |
+| city street |     43,516     |       25%        | 10,820      |
+|   highway   |     17,379     |       50%        | 8,620       |
+| residential |      8074      |       100%       | 8,074       |
 |  undefined  |      894       |       100%       | 894         |
-|    Total    |     69,863     |      40.7%       | 28,408       |
+|    Total    |     69,863     |      40.7%       | 28,408      |
 
 ## Model Architecture
+
 WIP - Rewrite architecture
 
-The model was trained using the [AWS Sagemaker Image Classification](https://docs.aws.amazon.com/sagemaker/latest/dg/image-classification.html) container. The model is trained using MXNet, it is a convolutional neural network. Beyond that, the AWS user documentation unfortunately does not give a ton of details on the architecture built behind the scenes. Below are the key hyperparameters that were selected:
+The model was trained using the [AWS Sagemaker Image Classification](https://docs.aws.amazon.com/sagemaker/latest/dg/image-classification.html) container. The model is trained using MXNet, it is a convolutional neural network. Beyond that, the AWS user documentation unfortunately does not give a ton of details on the architecture built behind the scenes. A raw visualization of the architecture exported from Sagemaker [can be found here](images/model_arch-scene-timeofday.svg). It appears to match the ResNet architecture [^2] terminating with a classification head.
+
+[^2]: [ResNet Architecture Paper](https://arxiv.org/abs/1512.03385)
+
+Below are the key hyperparameters that were selected:
+
+WIP - Add hyperparameters
+
+| Hyperparameter     | Value         | Notes                                                                                                             |
+| ------------------ | ------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Epochs             | 6             |                                                                                                                   |
+| Pretrained Weights | 1             | AWS provides weights pretrained on the ImageNet with 11,000 categories                                            |
+| Image Size         | 3 x 224 x 224 | Pretrained weights are only supported at this image size                                                          |
+| Layers             | 18            | The minimum supported layer count. The model did show elements of overfitting even at this restricted layer count |
+| Optimizer          | Adam          |                                                                                                                   |
+| Learning Rate      | 0.001         |                                                                                                                   |
+| Mini Batch Size    | 16            |         
 
 ## Performance
+
 WIP - rewrite performance
 
-Overall the performance of the model appears to be fairly good with a 92% accuracy on validation. However, the model appears to struggle with the "Dawn/Dusk" class (often labeling it as "daytime" instead). In part, I assume this is due to the ambiguity of how "Dawn/Dusk" was defined during labeling.
-
-|   Hyperparameter   |     Value     |                                                       Notes                                                       |
-|------------------|-------------|-----------------------------------------------------------------------------------------------------------------|
-|       Epochs       |       6       |                                                                                                                   |
-| Pretrained Weights | 1             | AWS provides weights pretrained on the ImageNet with 11,000 categories                                            |
-|     Image Size     | 3 * 224 * 224 | Pretrained weights are only supported at this image size                                                          |
-|       Layers       |       18      | The minimum supported layer count. The model did show elements of overfitting even at this restricted layer count |
-|      Optimizer     |      Adam     |                                                                                                                   |
-| Learning Rate      | 0.001         |                                                                                                                   |
-| Mini Batch Size    | 16            |                                                                                                                   |
+Overall the performance of the model appears to be fairly good with a 92% accuracy on validation. However, the model appears to struggle with the "Dawn/Dusk" class (often labeling it as "daytime" instead). In part, I assume this is due to the ambiguity of how "Dawn/Dusk" was defined during labeling.                                                                                                         |
 
 ### F1 Score
 
@@ -85,17 +95,15 @@ WIP rewrite performance
 
 The model trained on the BDD100k dataset does not exactly meet the intended use of that data. Teaching autonomous vehicles to drive isn't directly in line with my intended use (identifying risks to a *human* driver). While it was good enough for a school project, future research should look to collect a different dataset more in line with this use case. A big gap applicable to this "time of day" model was the definitions of daytime/dusk/night were inconsistent between photos. A better dataset for this purpose would likely have a numeric target like "hours till sunset" which is more objective.
 
-Additionally, looking to rebuild the model in a different tool stack would likely be good. The AWS Sagemaker Image Classification container was used as a learning opportunity, but the lack of control I had over the model was limiting. The model was prone to overfitting, and that sagemaker container does not give many options for a data scientist to mitigate those issues. 
+Additionally, looking to rebuild the model in a different tool stack would likely be good. The AWS Sagemaker Image Classification container was used as a learning opportunity, but the lack of control I had over the model was limiting. The model was prone to overfitting, and that sagemaker container does not give many options for a data scientist to mitigate those issues.
 
 ## Appendix
 
 ### Model Interpretation
 
-WIP - rewrite shapley
-
 Below is an example image from each class where the model was highly confident in the correct label. When reading these images, a blue region means that it contributed to the confidence, and a red region means it detracted from the confidence.  
 
-+ [Day](images/timeofday-daytime-shap.jpeg)
-+ [Dawn/Dusk](images/timeofday-dusk-shap.jpeg)
-+ [Night](images/timeofday-night-shap.jpeg)
-+ [Undefined](images/timeofday-undefined-shap.jpeg)
++ [City Street](images/scene-citystreet-shap.jpeg)
++ [Highway](images/scene-highway-shap.jpeg)
++ [Residential](images/scene-residential-shap.jpeg)
++ [Undefined](images/scene-undefined-shap.jpeg)

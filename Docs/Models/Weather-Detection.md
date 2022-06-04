@@ -26,6 +26,7 @@ In practice, the Undefined class is almost never used in the training data. It i
 ## Data Considerations
 
 WIP - Rewrite Data Considerations
+WIP - Add considerations around classes that were binned
 
 The model was trained using the BDD100k dataset [as described previously](../Dataset.md). This dataset has approximetly 70,000 training images and 10,000 validation images.
 
@@ -45,7 +46,11 @@ The dataset was highly imbalanced initially. As shown below, data was down-sampl
 
 WIP - Rewrite architecture
 
-The model was trained using the [AWS Sagemaker Image Classification](https://docs.aws.amazon.com/sagemaker/latest/dg/image-classification.html) container. The model is trained using MXNet, it is a convolutional neural network. Beyond that, the AWS user documentation unfortunately does not give a ton of details on the architecture built behind the scenes. Below are the key hyperparameters that were selected:
+The model was trained using the [AWS Sagemaker Image Classification](https://docs.aws.amazon.com/sagemaker/latest/dg/image-classification.html) container. The model is trained using MXNet, it is a convolutional neural network. Beyond that, the AWS user documentation unfortunately does not give a ton of details on the architecture built behind the scenes. A raw visualization of the architecture exported from Sagemaker [can be found here](images/model_arch-weather.svg). It appears to match the ResNet architecture [^2] terminating with a classification head.
+
+[^2]: [ResNet Architecture Paper](https://arxiv.org/abs/1512.03385)
+
+Below are the key hyperparameters that were selected:
 
 | Hyperparameter     | Value         | Notes                                                                                                             |
 | ------------------ | ------------- | ----------------------------------------------------------------------------------------------------------------- |
@@ -94,11 +99,11 @@ Additionally, looking to rebuild the model in a different tool stack would likel
 
 ### Model Interpretation
 
-WIP - rewrite shapley
-
 Below is an example image from each class where the model was highly confident in the correct label. When reading these images, a blue region means that it contributed to the confidence, and a red region means it detracted from the confidence.  
 
-+ [Day](images/timeofday-daytime-shap.jpeg)
-+ [Dawn/Dusk](images/timeofday-dusk-shap.jpeg)
-+ [Night](images/timeofday-night-shap.jpeg)
-+ [Undefined](images/timeofday-undefined-shap.jpeg)
++ [Clear Day](images/weather-clear-shap.jpeg)
++ [Partly Cloudy](images/weather-partlycloudy-shap.jpeg)
++ [Overcast](images/weather-overcast-shap.jpeg)
++ [Rainy](images/weather-rainy-shap.jpeg)
++ [Snowy](images/weather-snowy-shap.jpeg)
++ [Undefined](images/weather-undefined-shap.jpeg)
