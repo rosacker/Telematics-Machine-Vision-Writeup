@@ -4,35 +4,26 @@
 
 ## Purpose  
 
-WIP - Rewrite Purpose
-The purpose of this model is to detect the light level (a.k.a. time of day) that the driver has vision of. The motivation here being that dawn/dusk is known to be the most risky time of day to drive. [^1] Potentially time of day could be approximated by just using a clock, but the relationship is not that simple.
+The purpose of this model is to detect the class of road currently being driven on. The motivation here being that the risks that exist on a residential road versus the risks that exist on a highway are materially different. A residential road has a higher risk of slow speed crashes often involving pedestrians whereas a highway will often involve high speed collisions between vehicles.
 
-[^1]: WIP - Citation Needed
-
-> Light Level ~ Clock Time + Timezone + Geographic Position + Vehicle Heading + etc...
-
-Using machine vision to visually assess "is the sun rising/setting in front of me right now?" is seemingly simpler than trying to think through all of that complexity.
+Theoretically this data could be sourced through open source databases such as OpenStreetMap. However, these databases would reflect broad classifications for a road. Using machine vision, it would be possible to get much more granular. A road may broadly be a "city street", but it can weave in and out of "residential" for small segments. Machine vision would allow for knowing "on ground level what does this street look like to a driver?"
 
 The proposed model takes a single 3 x 224 x 224 image as input, and outputs probability of 4 classes:  
   
-1) Day  
-2) Dawn/Dust  
-3) Night  
+1) City Street  
+2) Highway
+3) Residential  
 4) Undefined  
   
-In practice, the Undefined class is almost never used in the training data. It is mostly reserved for totally artificial environments such as a tunnel where no daylight is visible in the photo.
+In practice, the Undefined class is almost never used in the training data. It is mostly reserved for artificial environments (tunnels, parking lots) or for sections where the exact class of road is unclear to the labeler or to the model.
 
 ## Data Considerations
-
-WIP - Rewrite Data Considerations
-
-WIP - Add considerations around classes that were binned
 
 The model was trained using the BDD100k dataset [as described previously](../Dataset.md). This dataset has approximately 70,000 training images and 10,000 validation images.
 
 Images were resized down to 224 x 224 pixels in order to align with the Sagemaker Image Classification container.
 
-The dataset was highly imbalanced initially. As shown below, data was down-sampled for training. Validation statistics reported further down are based upon the original validation dataset.
+Initially, the dataset included 7 classes of road. However, "Gas Station", "Parking Lot", and "Tunnel" were not well populated. For this reason, these classes were combined with the existing "Undefined" class. Additionally, the dataset was highly imbalanced. As shown below, data was down-sampled for training. Validation statistics reported further down are based upon the original validation dataset.
 
 |    Level    | Original Count | Down Sample Rate | Final Count |
 | :---------: | :------------: | :--------------: | :---------: |
@@ -44,9 +35,9 @@ The dataset was highly imbalanced initially. As shown below, data was down-sampl
 
 ## Model Architecture
 
-The model was trained using the [AWS Sagemaker Image Classification](https://docs.aws.amazon.com/sagemaker/latest/dg/image-classification.html) container. The model is trained using MXNet, it is a convolutional neural network. Beyond that, the AWS user documentation unfortunately does not give a ton of details on the architecture built behind the scenes. A raw visualization of the architecture exported from Sagemaker [can be found here](images/model_arch-scene-timeofday.svg). It appears to match the ResNet architecture[^2] terminating with a 4-node classification head.
+The model was trained using the [AWS Sagemaker Image Classification](https://docs.aws.amazon.com/sagemaker/latest/dg/image-classification.html) container. The model is trained using MXNet, it is a convolutional neural network. Beyond that, the AWS user documentation unfortunately does not give a ton of details on the architecture built behind the scenes. A raw visualization of the architecture exported from Sagemaker [can be found here](images/model_arch-scene-timeofday.svg). It appears to match the ResNet architecture[^1] terminating with a 4-node classification head.
 
-[^2]: [ResNet Architecture Paper](https://arxiv.org/abs/1512.03385)
+[^1]: [ResNet Architecture Paper](https://arxiv.org/abs/1512.03385)
 
 Below are the key hyperparameters that were selected:
 
@@ -73,7 +64,7 @@ Overall the performance of the model appears to be middle of the road with a 67%
 | Residential  |   0.58    |  0.51  | 0.54     | 1253    |
 |  Undefined   |   0.32    |  0.38  | 0.35     | 136     |
 |              |           |        |          |         |
-|   accuracy   |   0.67    | 10000  | 0.67     | 769     |
+|   accuracy   |       |   | 0.67    | 10000 |
 |  macro avg   |   0.57    |  0.60  | 0.57     | 10000   |
 | weighted avg |   0.73    |  0.67  | 0.68     | 10000   |
 
@@ -83,9 +74,7 @@ Overall the performance of the model appears to be middle of the road with a 67%
 
 ## Future Enhancements
 
-WIP rewrite performance
-
-The model trained on the BDD100k dataset does not exactly meet the intended use of that data. Teaching autonomous vehicles to drive isn't directly in line with my intended use (identifying risks to a *human* driver). While it was good enough for a school project, future research should look to collect a different dataset more in line with this use case. A big gap applicable to this "time of day" model was the definitions of daytime/dusk/night were inconsistent between photos. A better dataset for this purpose would likely have a numeric target like "hours till sunset" which is more objective.
+The model trained on the BDD100k dataset does not exactly meet the intended use of that data. Teaching autonomous vehicles to drive isn't directly in line with my intended use (identifying risks to a *human* driver). While it was good enough for a school project, future research should look to collect a different dataset more in line with this use case. A big gap applicable to this "street category" model was the definitions of Residential vs City Street. A better dataset for this purpose would likely have a broader class of roads (dirt road, suburban residential, small town commercial) rather than being very specific about the difference between City Residential vs City Commercial.
 
 Additionally, looking to rebuild the model in a different tool stack would likely be good. The AWS Sagemaker Image Classification container was used as a learning opportunity, but the lack of control I had over the model was limiting. The model was prone to overfitting, and that sagemaker container does not give many options for a data scientist to mitigate those issues.
 
