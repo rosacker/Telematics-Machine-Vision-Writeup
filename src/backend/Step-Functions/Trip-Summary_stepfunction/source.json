@@ -1,0 +1,110 @@
+{
+    "Comment": "A description of my state machine",
+    "StartAt": "For Each Trip...",
+    "States": {
+      "For Each Trip...": {
+        "Type": "Map",
+        "Iterator": {
+          "StartAt": "Get S3 Images",
+          "States": {
+            "Get S3 Images": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::dynamodb:getItem",
+              "Parameters": {
+                "TableName": "telematics-images-metadata",
+                "Key": {
+                  "trip_id": {
+                    "S.$": "$.trip_id"
+                  }
+                }
+              },
+              "Next": "Reformat DynamoDB Result",
+              "ResultSelector": {
+                "trip_id.$": "$.Item.trip_id.S",
+                "photos.$": "$.Item.photos.L"
+              }
+            },
+            "Reformat DynamoDB Result": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::lambda:invoke",
+              "OutputPath": "$.Payload",
+              "Parameters": {
+                "Payload.$": "$",
+                "FunctionName": "arn:aws:lambda:us-east-1:821019163050:function:dynamoDB_deserialize:$LATEST"
+              },
+              "Retry": [
+                {
+                  "ErrorEquals": [
+                    "Lambda.ServiceException",
+                    "Lambda.AWSLambdaException",
+                    "Lambda.SdkClientException"
+                  ],
+                  "IntervalSeconds": 2,
+                  "MaxAttempts": 6,
+                  "BackoffRate": 2
+                }
+              ],
+              "Next": "Parse S3 Bucket and Key"
+            },
+            "Parse S3 Bucket and Key": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::lambda:invoke",
+              "OutputPath": "$.Payload",
+              "Parameters": {
+                "Payload.$": "$",
+                "FunctionName": "arn:aws:lambda:us-east-1:821019163050:function:split_s3_url:$LATEST"
+              },
+              "Retry": [
+                {
+                  "ErrorEquals": [
+                    "Lambda.ServiceException",
+                    "Lambda.AWSLambdaException",
+                    "Lambda.SdkClientException"
+                  ],
+                  "IntervalSeconds": 2,
+                  "MaxAttempts": 6,
+                  "BackoffRate": 2
+                }
+              ],
+              "Next": "For Each Image..."
+            },
+            "For Each Image...": {
+              "Type": "Map",
+              "Iterator": {
+                "StartAt": "Execute Models",
+                "States": {
+                  "Execute Models": {
+                    "Type": "Task",
+                    "Resource": "arn:aws:states:::lambda:invoke",
+                    "OutputPath": "$.Payload",
+                    "Parameters": {
+                      "Payload.$": "$",
+                      "FunctionName": "arn:aws:lambda:us-east-1:821019163050:function:invoke_sagemaker_image_endpoint:$LATEST"
+                    },
+                    "Retry": [
+                      {
+                        "ErrorEquals": [
+                          "Lambda.ServiceException",
+                          "Lambda.AWSLambdaException",
+                          "Lambda.SdkClientException"
+                        ],
+                        "IntervalSeconds": 2,
+                        "MaxAttempts": 6,
+                        "BackoffRate": 2
+                      }
+                    ],
+                    "End": true
+                  }
+                }
+              },
+              "MaxConcurrency": 5,
+              "End": true
+            }
+          }
+        },
+        "ItemsPath": "$.trip_ids",
+        "MaxConcurrency": 1,
+        "End": true
+      }
+    }
+  }

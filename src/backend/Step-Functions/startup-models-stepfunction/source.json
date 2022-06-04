@@ -1,0 +1,88 @@
+{
+    "Comment": "A description of my state machine",
+    "StartAt": "Pass",
+    "States": {
+      "Pass": {
+        "Type": "Pass",
+        "Next": "Startup Endpoints",
+        "Result": [
+          {
+            "config": "scene-v3-config",
+            "endpoint_name": "scene"
+          },
+          {
+            "config": "timeofday-v3-config",
+            "endpoint_name": "timeofday"
+          },
+          {
+            "config": "weather-v3-config",
+            "endpoint_name": "weather"
+          }
+        ]
+      },
+      "Startup Endpoints": {
+        "Type": "Map",
+        "Iterator": {
+          "StartAt": "Start Endpoint",
+          "States": {
+            "Start Endpoint": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::sagemaker:createEndpoint",
+              "Parameters": {
+                "EndpointConfigName.$": "$.config",
+                "EndpointName.$": "$.endpoint_name"
+              },
+              "Next": "Wait 10 Second"
+            },
+            "Wait 10 Second": {
+              "Type": "Wait",
+              "Seconds": 10,
+              "End": true
+            }
+          }
+        },
+        "ResultPath": null,
+        "Next": "Map",
+        "MaxConcurrency": 1
+      },
+      "Map": {
+        "Type": "Map",
+        "End": true,
+        "Iterator": {
+          "StartAt": "DescribeEndpoint",
+          "States": {
+            "DescribeEndpoint": {
+              "Type": "Task",
+              "Parameters": {
+                "EndpointName.$": "$.endpoint_name"
+              },
+              "Resource": "arn:aws:states:::aws-sdk:sagemaker:describeEndpoint",
+              "Next": "Choice",
+              "ResultPath": "$.endpoint_status"
+            },
+            "Choice": {
+              "Type": "Choice",
+              "Choices": [
+                {
+                  "Variable": "$.endpoint_status.EndpointStatus",
+                  "StringEquals": "InService",
+                  "Next": "End Loop"
+                }
+              ],
+              "Default": "Wait"
+            },
+            "End Loop": {
+              "Type": "Pass",
+              "End": true
+            },
+            "Wait": {
+              "Type": "Wait",
+              "Seconds": 20,
+              "Next": "DescribeEndpoint"
+            }
+          }
+        },
+        "MaxConcurrency": 1
+      }
+    }
+  }

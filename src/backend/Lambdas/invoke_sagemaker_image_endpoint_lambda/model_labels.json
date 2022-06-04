@@ -1,0 +1,22 @@
+{
+    "weather": [
+        "rainy",
+        "snowy", 
+        "clear",
+        "overcast",
+        "partly cloudy",
+        "undefined"
+    ],
+    "timeofday": [
+        "daytime",
+        "night",
+        "dawn/dusk",
+        "undefined"
+    ],
+    "scene": [
+        "residential", 
+        "city street",
+        "highway",
+        "undefined"
+    ]
+}

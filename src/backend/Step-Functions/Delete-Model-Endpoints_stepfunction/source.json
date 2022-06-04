@@ -1,0 +1,47 @@
+{
+    "Comment": "A description of my state machine",
+    "StartAt": "Pass",
+    "States": {
+      "Pass": {
+        "Type": "Pass",
+        "Next": "Loop Over Endpoints",
+        "Result": [
+          {
+            "config": "scene-config",
+            "endpoint_name": "scene"
+          },
+          {
+            "config": "timeofday-config",
+            "endpoint_name": "timeofday"
+          },
+          {
+            "config": "weather-config",
+            "endpoint_name": "weather"
+          }
+        ]
+      },
+      "Loop Over Endpoints": {
+        "Type": "Map",
+        "Iterator": {
+          "StartAt": "Delete Endpoint",
+          "States": {
+            "Delete Endpoint": {
+              "Type": "Task",
+              "Parameters": {
+                "EndpointName.$": "$.endpoint_name"
+              },
+              "Resource": "arn:aws:states:::aws-sdk:sagemaker:deleteEndpoint",
+              "Next": "Wait"
+            },
+            "Wait": {
+              "Type": "Wait",
+              "Seconds": 10,
+              "End": true
+            }
+          }
+        },
+        "End": true,
+        "MaxConcurrency": 1
+      }
+    }
+  }
