@@ -17,7 +17,7 @@ extra_css:
   
 # Page Order
 nav:
-    - 'Project-Goal.md'
+    - 'index.md'
     - 'Telematics-Context.md'
     - 'Dataset.md'
     - Models:
