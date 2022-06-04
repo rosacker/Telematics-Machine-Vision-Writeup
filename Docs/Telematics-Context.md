@@ -16,5 +16,3 @@ These systems generally focus on data which can be captured using devices tradit
 [^6]: https://www.caranddriver.com/news/a33555840/root-auto-insurance-credit-scores-racism/
 
 There is one additional device on smartphones which till now has not been broadly used for vehicle telematics: the camera. While much of the data captured through telematics has a meaningful causal relationship with insurance risk (i.e. It makes sense that hard braking events would relate to crashes), they are still somewhat of a proxy. There are totally valid reasons to have hard braking events in a car, and simply treating all of them as equal does not seem optimal. Where a camera could expand vehicle telematics is giving additional context around these more traditional events. If the accelerometer detects a hard braking event, can that be correlated with the driver waiting till the last minute to avoid rear ending someone, or was it because someone else ran a red light? Those two stories both had the potential to end in a crash, but "fault" is something that can only really be assessed when machine vision is incorporated into the solution.
-
-WIP - reread 1 last time

@@ -12,10 +12,6 @@ Below is a small sample of the types of images/labels available in the dataset[^
     
     ![](https://www.bdd100k.com/images/portfolio/det1.png)
 
-=== "Box Tracking"
-
-    ![](https://www.bdd100k.com/images/portfolio/box_track1.gif)
-
 === "Vehicle Segmentation"
 
     ![](https://www.bdd100k.com/images/portfolio/seg_track2.gif)
@@ -34,8 +30,12 @@ Below is a small sample of the types of images/labels available in the dataset[^
 
 ## Additional Dataset History
 
-The dataset was originally published in 2018[^2] with a total of 10 tasks available for future authors to test their machine vision models on. 
-
-For the purposes of this project, an enhanced set of labels were used which were released in a follow project in 2020. WIP  
+The dataset was originally published in 2018[^2] with a total of 10 tasks available for future authors to test their machine vision models on. For the purposes of this project, an enhanced set of labels were used which were released in a follow project in 2020.  
 
 [^2]: Source - [https://arxiv.org/abs/1805.04687](https://arxiv.org/abs/1805.04687)
+
+## Dataset Bias Consideration
+
+As shown below, images for the dataset were collected in major US cities. While capturing the data in these location certainly works well for building a challenging dataset with many targets, it does present a bias when you look to apply the model in other portions of the US. A review of the images did not find many photos that were reflective of suburban or rural geographic locations, and models trained on this dataset are seemingly not likely to generalize well to those areas.
+
+![](images/dataset-capture-location.PNG)
