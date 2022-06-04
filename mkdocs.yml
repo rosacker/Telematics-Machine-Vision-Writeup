@@ -44,6 +44,7 @@ theme:
     - navigation.top
     - navigation.instant
     - navigation.expand
+    - toc.integrate
 
 # Extensions
 markdown_extensions:

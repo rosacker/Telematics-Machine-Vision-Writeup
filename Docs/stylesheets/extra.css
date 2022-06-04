@@ -1,3 +1,7 @@
 .md-grid {
     max-width: 1640px; 
   }
+
+.md-sidebar {
+    width: 15rem;
+  }
