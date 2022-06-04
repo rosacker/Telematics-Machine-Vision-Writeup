@@ -1,6 +1,6 @@
 # Project information
 site_name: "Vehicle Telematics With Machine Vision"
-site_description: "A project that appies Machine Vision solutions to Vehicle Telematics"
+site_description: "A project that applies Machine Vision solutions to Vehicle Telematics"
 site_author: "Tyler Rosacker"
 site_url: "https://rosacker.github.io/Telematics-Machine-Vision-Writeup/"
 
@@ -22,17 +22,12 @@ nav:
     - 'Project-Goal.md'
     - 'Dataset.md'
     - Models:
-      - 'Models/index.md'
       - 'Models/Weather-Detection.md'
       - 'Models/Time-Of-Day-Detection.md'
       - 'Models/Street-Category.md'
       - 'Models/Road-Object-Detection.md'
-    - Deployment:
-      - 'Deployment/index.md'
-      - 'Deployment/API.md'
-      - 'Deployment/Camera-Options.md'
+    - 'Deployment.md'
     - 'Road-Test.md'
-    - 'Costs.md'
     - 'Future-Research.md'
     - 'Sources.md'
 # Configuration
