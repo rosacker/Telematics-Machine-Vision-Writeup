@@ -28,31 +28,27 @@ WIP - Rewrite Data Considerations
 
 WIP - Add considerations around classes that were binned
 
-The model was trained using the BDD100k dataset [as described previously](../Dataset.md). This dataset has approximetly 70,000 training images and 10,000 validation images.
+The model was trained using the BDD100k dataset [as described previously](../Dataset.md). This dataset has approximately 70,000 training images and 10,000 validation images.
 
 Images were resized down to 224 x 224 pixels in order to align with the Sagemaker Image Classification container.
 
 The dataset was highly imbalanced initially. As shown below, data was down-sampled for training. Validation statistics reported further down are based upon the original validation dataset.
 
 |    Level    | Original Count | Down Sample Rate | Final Count |
-| :---------: | :------------: | :--------------: | ----------- |
-| city street |     43,516     |       25%        | 10,820      |
-|   highway   |     17,379     |       50%        | 8,620       |
-| residential |      8074      |       100%       | 8,074       |
-|  undefined  |      894       |       100%       | 894         |
-|    Total    |     69,863     |      40.7%       | 28,408      |
+| :---------: | :------------: | :--------------: | :---------: |
+| city street |     43,516     |       25%        |   10,820    |
+|   highway   |     17,379     |       50%        |    8,620    |
+| residential |      8074      |       100%       |    8,074    |
+|  undefined  |      894       |       100%       |     894     |
+|    Total    |     69,863     |      40.7%       |   28,408    |
 
 ## Model Architecture
 
-WIP - Rewrite architecture
-
-The model was trained using the [AWS Sagemaker Image Classification](https://docs.aws.amazon.com/sagemaker/latest/dg/image-classification.html) container. The model is trained using MXNet, it is a convolutional neural network. Beyond that, the AWS user documentation unfortunately does not give a ton of details on the architecture built behind the scenes. A raw visualization of the architecture exported from Sagemaker [can be found here](images/model_arch-scene-timeofday.svg). It appears to match the ResNet architecture [^2] terminating with a classification head.
+The model was trained using the [AWS Sagemaker Image Classification](https://docs.aws.amazon.com/sagemaker/latest/dg/image-classification.html) container. The model is trained using MXNet, it is a convolutional neural network. Beyond that, the AWS user documentation unfortunately does not give a ton of details on the architecture built behind the scenes. A raw visualization of the architecture exported from Sagemaker [can be found here](images/model_arch-scene-timeofday.svg). It appears to match the ResNet architecture[^2] terminating with a 4-node classification head.
 
 [^2]: [ResNet Architecture Paper](https://arxiv.org/abs/1512.03385)
 
 Below are the key hyperparameters that were selected:
-
-WIP - Add hyperparameters
 
 | Hyperparameter     | Value         | Notes                                                                                                             |
 | ------------------ | ------------- | ----------------------------------------------------------------------------------------------------------------- |
@@ -62,28 +58,24 @@ WIP - Add hyperparameters
 | Layers             | 18            | The minimum supported layer count. The model did show elements of overfitting even at this restricted layer count |
 | Optimizer          | Adam          |                                                                                                                   |
 | Learning Rate      | 0.001         |                                                                                                                   |
-| Mini Batch Size    | 16            |         
+| Mini Batch Size    | 16            |
 
 ## Performance
 
-WIP - rewrite performance
-
-Overall the performance of the model appears to be fairly good with a 92% accuracy on validation. However, the model appears to struggle with the "Dawn/Dusk" class (often labeling it as "daytime" instead). In part, I assume this is due to the ambiguity of how "Dawn/Dusk" was defined during labeling.                                                                                                         |
+Overall the performance of the model appears to be middle of the road with a 67% accuracy on validation. In general, the model's accuracy seems to be impacted by unclear definitions of "residential" vs "city street" in the dataset. The intended definition seems to be single-family dense neighbors (residential) versus commercial district streets (city street). However, these are fairly similar in the grand scheme of all roads that can exist. Potentially re-assessing the data collected and the labels to have a broader span of classes (i.e. dirt road, suburban residential, small town commercial) would be a better way to assess performance.
 
 ### F1 Score
 
-WIP rewrite F-scores
-
 |              | precision | recall | f1-score | support |
 | :----------: | :-------: | :----: | -------- | ------- |
-|  dawn/dusk   |   0.57    |  0.53  | 0.55     | 778     |
-|   daytime    |   0.93    |  0.94  | 0.94     | 5258    |
-|    night     |   0.98    |  0.98  | 0.98     | 3929    |
-|  undefined   |   0.74    |  0.57  | 0.65     | 35      |
+| City Street  |   0.85    |  0.64  | 0.73     | 6112    |
+|   Highway    |   0.52    |  0.86  | 0.65     | 2499    |
+| Residential  |   0.58    |  0.51  | 0.54     | 1253    |
+|  Undefined   |   0.32    |  0.38  | 0.35     | 136     |
 |              |           |        |          |         |
-|   accuracy   |           |        | 0.92     | 10000   |
-|  macro avg   |   0.80    |  0.75  | 0.78     | 10000   |
-| weighted avg |   0.92    |  0.92  | 0.92     | 10000   |
+|   accuracy   |   0.67    | 10000  | 0.67     | 769     |
+|  macro avg   |   0.57    |  0.60  | 0.57     | 10000   |
+| weighted avg |   0.73    |  0.67  | 0.68     | 10000   |
 
 ### Confusion Matrix
 

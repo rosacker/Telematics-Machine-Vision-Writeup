@@ -28,25 +28,25 @@ In practice, the Undefined class is almost never used in the training data. It i
 WIP - Rewrite Data Considerations
 WIP - Add considerations around classes that were binned
 
-The model was trained using the BDD100k dataset [as described previously](../Dataset.md). This dataset has approximetly 70,000 training images and 10,000 validation images.
+The model was trained using the BDD100k dataset [as described previously](../Dataset.md). This dataset has approximately 70,000 training images and 10,000 validation images.
 
 Images were resized down to 224 x 224 pixels in order to align with the Sagemaker Image Classification container.
 
 The dataset was highly imbalanced initially. As shown below, data was down-sampled for training. Validation statistics reported further down are based upon the original validation dataset.
 
-|    Level    | Original Count | Down Sample Rate | Final Count |
-| :---------: | :------------: | :--------------: | ----------- |
-| city street |     43,516     |       25%        | 10,820      |
-|   highway   |     17,379     |       50%        | 8,620       |
-| residential |      8074      |       100%       | 8,074       |
-|  undefined  |      894       |       100%       | 894         |
-|    Total    |     69,863     |      40.7%       | 28,408      |
+|     Level     | Original Count | Down Sample Rate | Final Count |
+| :-----------: | :------------: | :--------------: | ----------- |
+|     Clear     |     37,344     |       15%        | 5,518       |
+| Partly Cloudy |     4,881      |       100%       | 4,881       |
+|   Overcast    |     8,770      |       75%        | 6,554       |
+|     Rainy     |     5,070      |       100%       | 5,070       |
+|     Snowy     |     5,549      |       100%       | 5,549       |
+|   Undefined   |     8,249      |       75%        | 6,202       |
+|     Total     |     69,863     |      48.3%       | 33,774      |
 
 ## Model Architecture
 
-WIP - Rewrite architecture
-
-The model was trained using the [AWS Sagemaker Image Classification](https://docs.aws.amazon.com/sagemaker/latest/dg/image-classification.html) container. The model is trained using MXNet, it is a convolutional neural network. Beyond that, the AWS user documentation unfortunately does not give a ton of details on the architecture built behind the scenes. A raw visualization of the architecture exported from Sagemaker [can be found here](images/model_arch-weather.svg). It appears to match the ResNet architecture [^2] terminating with a classification head.
+The model was trained using the [AWS Sagemaker Image Classification](https://docs.aws.amazon.com/sagemaker/latest/dg/image-classification.html) container. The model is trained using MXNet, it is a convolutional neural network. Beyond that, the AWS user documentation unfortunately does not give a ton of details on the architecture built behind the scenes. A raw visualization of the architecture exported from Sagemaker [can be found here](images/model_arch-weather.svg). It appears to match the ResNet architecture[^2] terminating with a 6-node classification head.
 
 [^2]: [ResNet Architecture Paper](https://arxiv.org/abs/1512.03385)
 
@@ -64,24 +64,22 @@ Below are the key hyperparameters that were selected:
 
 ## Performance
 
-WIP - rewrite performance
-
-Overall the performance of the model appears to be fairly good with a 92% accuracy on validation. However, the model appears to struggle with the "Dawn/Dusk" class (often labeling it as "daytime" instead). In part, I assume this is due to the ambiguity of how "Dawn/Dusk" was defined during labeling.
+Overall the performance of the model appears to be middle of the road with a 67% accuracy on validation. In general, the model's accuracy seems to be impacted by the fuzzy line between classes: at what point does a cloudy sky become "rainy"? In reviewing mis-classification examples, commonly the ground-truth label was unclear. For example, an image of clear weather sky, but a small amount of snow on the side of the road was labeled "snowy". While that label is not objectively wrong, I think reasonable minds would agree with the models label of "clear" as well.
 
 ### F1 Score
 
-WIP rewrite F-scores
-
-|              | precision | recall | f1-score | support |
-| :----------: | :-------: | :----: | -------- | ------- |
-|  dawn/dusk   |   0.57    |  0.53  | 0.55     | 778     |
-|   daytime    |   0.93    |  0.94  | 0.94     | 5258    |
-|    night     |   0.98    |  0.98  | 0.98     | 3929    |
-|  undefined   |   0.74    |  0.57  | 0.65     | 35      |
-|              |           |        |          |         |
-|   accuracy   |           |        | 0.92     | 10000   |
-|  macro avg   |   0.80    |  0.75  | 0.78     | 10000   |
-| weighted avg |   0.92    |  0.92  | 0.92     | 10000   |
+|               | precision | recall | f1-score | support |
+| :-----------: | :-------: | :----: | -------- | ------- |
+|     Clear     |   0.92    |  0.79  | 0.85     | 5346    |
+| Partly Cloudy |   0.46    |  0.74  | 0.57     | 738     |
+|   Overcast    |   0.58    |  0.64  | 0.61     | 1239    |
+|     Rainy     |   0.66    |  0.66  | 0.66     | 738     |
+|     Snowy     |   0.78    |  0.59  | 0.67     | 769     |
+|   Undefined   |   0.58    |  0.75  | 0.65     | 1170    |
+|               |           |        |          |         |
+|   accuracy    |   0.74    | 10000  | 0.67     | 10000   |
+|   macro avg   |   0.66    |  0.70  | 0.67     | 10000   |
+| weighted avg  |   0.77    |  0.74  | 0.75     | 10000   |
 
 ### Confusion Matrix
 
