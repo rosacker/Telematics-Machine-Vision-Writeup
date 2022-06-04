@@ -26,9 +26,7 @@ nav:
       - 'Models/Weather-Detection.md'
       - 'Models/Time-Of-Day-Detection.md'
       - 'Models/Street-Category.md'
-      - 'Models/Stop-Light-Detection.md'
       - 'Models/Road-Object-Detection.md'
-      - 'Models/Why-AutoML.md'
     - Deployment:
       - 'Deployment/index.md'
       - 'Deployment/API.md'

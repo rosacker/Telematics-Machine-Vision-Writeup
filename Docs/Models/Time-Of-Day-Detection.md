@@ -13,12 +13,12 @@ The purpose of this model is to detect the light level (a.k.a. time of day) that
 Using machine vision to visually assess "is the sun rising/setting in front of me right now?" is seemingly simpler than trying to think through all of that complexity.
 
 The proposed model takes a single 3 x 224 x 224 image as input, and outputs probability of 4 classes:  
-
-1) Day
-2) Dawn/Dust
-3) Night
-4) Undefined
-
+  
+1) Day  
+2) Dawn/Dust  
+3) Night  
+4) Undefined  
+  
 In practice, the Undefined class is almost never used in the training data. It is mostly reserved for totally artificial environments such as a tunnel where no daylight is visible in the photo.
 
 ## Data Considerations
@@ -46,7 +46,7 @@ WIP
 |     night    |    0.98   | 0.98   | 0.98     | 3929    |
 |   undefined  |    0.74   | 0.57   | 0.65     | 35      |
 |              |           |        |          |         |
-|   accuracy   |       |   | 0.92   | 10000    |
+|   accuracy   |           |        | 0.92     | 10000   |
 | macro avg    | 0.80      | 0.75   | 0.78     | 10000   |
 | weighted avg | 0.92      | 0.92   | 0.92     | 10000   |
 
