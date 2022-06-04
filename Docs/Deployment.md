@@ -8,6 +8,10 @@ The majority of this solution was deployed using AWS Sagemaker and AWS Rekogniti
 
 The first half of this system focuses on the capture of driver data. A small website was developed ([source code](https://github.com/rosacker/Telematics-Machine-Vision-Writeup/tree/master/src/frontend)) that a user can access with their Smartphone. When the user starts a "trip", images and GPS data are automatically captured every 5 seconds. This data is sent to an API which saves the photo and associated metadata for future processing.
 
+Visualized below are a series of photos captured through this system at 5 second intervals and 480p resolution.
+
+![](images/data_capture_demo.gif)
+
 ## Asynchronous Trip Summary Pipeline
 
 As a batch process, trip data is processed through a machine vision pipeline. When triggered, the batch process hosts the 3 sagemaker models discussed in the "Models" section of this book on Sagemaker Endpoints. The pipeline then loops through each unique trip id, and grabs all of the associated image URLs from a DynamoDB database. Each image is then processed through a Lambda which invokes the Sagemaker Endpoints as well as the Rekognition `detect_labels` API. The model detections are then stored in another DynamoDB database for downstream use. Finally, the sagemaker endpoints are shut down once all trips have been processed.

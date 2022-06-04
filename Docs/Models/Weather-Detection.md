@@ -1,6 +1,5 @@
 # Weather Classifier
 
-WIP - rerun image with better label format
 ![](images/weather_demo.gif)
 
 ## Purpose  
@@ -89,9 +88,7 @@ Additionally, looking to rebuild the model in a different tool stack would likel
 
 ### Model Interpretation
 
-Below is an example image from each class where the model was highly confident in the correct label. When reading these images, a blue region means that it contributed to the confidence, and a red region means it detracted from the confidence.  
-
-WIP - Clear day photo seems wrong
+Below is an example image from each class where the model correctly labeled the image. When reading these images, a blue region means that it contributed to the confidence, and a red region means it detracted from the confidence.  
 
 + [Clear Day](images/weather-clear-shap.jpeg)
 + [Partly Cloudy](images/weather-partlycloudy-shap.jpeg)
