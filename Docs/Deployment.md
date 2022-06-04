@@ -16,7 +16,7 @@ Visualized below are a series of photos captured through this system at 5 second
 
 As a batch process, trip data is processed through a machine vision pipeline. When triggered, the batch process hosts the 3 sagemaker models discussed in the "Models" section of this book on Sagemaker Endpoints. The pipeline then loops through each unique trip id, and grabs all of the associated image URLs from a DynamoDB database. Each image is then processed through a Lambda which invokes the Sagemaker Endpoints as well as the Rekognition `detect_labels` API. The model detections are then stored in another DynamoDB database for downstream use. Finally, the sagemaker endpoints are shut down once all trips have been processed.
 
-Backend Source can be [found here](https://github.com/rosacker/Telematics-Machine-Vision-Writeup/tree/master/src/backend)
+The backend source code can be [found here](https://github.com/rosacker/Telematics-Machine-Vision-Writeup/tree/master/src/backend)
 
 ## Future Enhancements
 
