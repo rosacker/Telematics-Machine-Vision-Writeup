@@ -90,9 +90,9 @@ Additionally, looking to rebuild the model in a different tool stack would likel
 
 Below is an example image from each class where the model correctly labeled the image. When reading these images, a blue region means that it contributed to the confidence, and a red region means it detracted from the confidence.  
 
-+ [Clear Day](images/weather-clear-shap.jpeg)
-+ [Partly Cloudy](images/weather-partlycloudy-shap.jpeg)
-+ [Overcast](images/weather-overcast-shap.jpeg)
-+ [Rainy](images/weather-rainy-shap.jpeg)
 + [Snowy](images/weather-snowy-shap.jpeg)
++ [Rainy](images/weather-rainy-shap.jpeg)
++ [Overcast](images/weather-overcast-shap.jpeg)
++ [Partly Cloudy](images/weather-partlycloudy-shap.jpeg)
++ [Clear Day](images/weather-clear-shap.jpeg)
 + [Undefined](images/weather-undefined-shap.jpeg)
