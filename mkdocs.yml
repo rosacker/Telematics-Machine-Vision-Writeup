@@ -35,7 +35,6 @@ nav:
     - 'Costs.md'
     - 'Future-Research.md'
     - 'Sources.md'
-    - 'About-The-Author.md'
 # Configuration
 docs_dir: "Docs"
 theme:
