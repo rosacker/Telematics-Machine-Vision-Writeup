@@ -4,6 +4,10 @@
 
 + [BDD100K: A Diverse Driving Dataset for Heterogeneous Multitask Learning](https://arxiv.org/abs/1805.04687)
 
+## Model Architecture
+
++ [ResNet](https://arxiv.org/abs/1512.03385)
+
 ## Motivating Research
 
 + [Usage-Based Insurance and Vehicle Telematics: Insurance Market and Regulatory Implications](https://www.casact.org/sites/default/files/2021-03/6U_NAIC_Telematics.pdf)
